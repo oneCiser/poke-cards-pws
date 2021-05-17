@@ -1,0 +1,10 @@
+.pages{
+    position: absolute;
+    bottom: 1px;
+    left: 30vw;
+}
+.cards-scroll{
+    overflow-y: scroll;
+    max-height: 85vh;
+    padding-top: 10px;
+}
