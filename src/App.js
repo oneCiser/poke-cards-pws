@@ -6,7 +6,7 @@ function App() {
 
   return (
     <div className="App">
-        <PokePages start={0} />
+        <PokePages start={localStorage.getItem('page') ? parseInt(localStorage.getItem('page')) : 0} />
     </div>
   );
 }

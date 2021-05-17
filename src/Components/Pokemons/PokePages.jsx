@@ -17,6 +17,7 @@ const getCurrent = (setCurrent, current) => {
                 previus: data.previus,
                 pokemons: data.results
             }
+            localStorage.setItem('page',currentTmp.current);
             setCurrent(currentTmp);
         })
 }
