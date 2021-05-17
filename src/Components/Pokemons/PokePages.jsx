@@ -1,4 +1,4 @@
-import { Pagination, Navbar, Nav, Image } from 'react-bootstrap';
+import { Pagination, Navbar, Nav,  } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './PokePages.css'
 import PokeCards from './PokeCards';
@@ -36,17 +36,40 @@ function range(size, startAt = 0, max) {
 
 
 }
+async function pokeNotification(pokemons) {
+    const randomItem = Math.floor(Math.random() * pokemons.length);
+    const pokemon = await (await fetch(pokemons[randomItem].url)).json();
+    console.log(pokemon);
+    const notifTitle = pokemon.name;
+    const notifBody = `Exp ${pokemon.base_experience}`;
+    const notifImg = new Image;
+    notifImg.src = pokemon.sprites.front_default;
+    const options = {
+      body: notifBody,
+      icon: pokemon.sprites.front_default,
+    };
+    new Notification(notifTitle, options);
+}
 function PokePages(props) {
     const { start } = props;
-    const [current, setCurrent] = useState({ current: start, count: 0, next: null, previus: null, pokemons: null })
+    const [current, setCurrent] = useState({ current: start, count: 0, next: null, previus: null, pokemons: null });
     useEffect(() => {
         getCurrent(setCurrent, current.current);
+        
     }, [start])
     const numberRange = range(10, current.current, current.count);
+    if(!localStorage.getItem('requestPermission') && current.pokemons){
+        Notification.requestPermission()
+        .then((result) => {
+            if (result === 'granted'){
+                pokeNotification(current.pokemons)
+            }
+        })
+    }
     return (
         <>
             <Navbar bg="primary" variant="dark">
-                <Image src={window.location.origin + '/logo.png'} style={{width:'75px',height:'75px'}}/>
+                <img src={window.location.origin + '/logo.png'} style={{width:'75px',height:'75px'}}/>
                 <Nav className="mr-auto">
                 </Nav>
             </Navbar>
@@ -96,8 +119,7 @@ function PokePages(props) {
                 </Pagination>
             }
             </div>
- 
-
+            
         </>
     );
 }
