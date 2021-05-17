@@ -1,4 +1,4 @@
-import { Pagination, Navbar, Nav } from 'react-bootstrap';
+import { Pagination, Navbar, Nav, Image } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './PokePages.css'
 import PokeCards from './PokeCards';
@@ -45,7 +45,7 @@ function PokePages(props) {
     return (
         <>
             <Navbar bg="primary" variant="dark">
-                <Navbar.Brand href="#home">Navbar</Navbar.Brand>
+                <Image src={window.location.origin + '/logo.png'} style={{width:'75px',height:'75px'}}/>
                 <Nav className="mr-auto">
                 </Nav>
             </Navbar>
